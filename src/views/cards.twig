@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalla Elemental</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .card-container {
+      perspective: 1000px;
+      opacity: 0;
+      transform: translateX(100vw); /* Start off-screen to the right */
+      animation: fadeInCurve 1s ease-out forwards;
+    }
+
+    @keyframes fadeInCurve {
+      from {
+        opacity: 0;
+        transform: translateX(100vw) rotate(45deg); /* Start from the right, rotated */
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) rotate(0); /* End in normal position */
+      }
+    }
+
+    .card {
+      width: 100%;
+      height: 25em;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+
+    .card:hover {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .card-front {
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-front img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    .card-front .card-title {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+    }
+
+    .card-back {
+      background-color: #343a40;
+      color: white;
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-back p {
+      margin: 5px 0;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .pagination a {
+      text-decoration: none;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .pagination span {
+      font-size: 1.1rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center">Batalla Elemental</h1>
+
+    <!-- Formulario de búsqueda con filtros -->
+    <div class="mb-4">
+      <form action="/cards" method="get">
+        <div class="row">
+          <div class="col-md-2">
+            <input type="text" name="name" class="form-control" placeholder="Nombre" value="{{ filters.name }}">
+          </div>
+          <div class="col-md-2">
+            {# <input type="text" name="rarity" class="form-control" placeholder="Rareza" value="{{ filters.rarity }}"> #}
+            <select name="rarity" class="form-control" placeholder="Rareza" value="{{ filters.rarity }}">
+              <option value="">Seleccione Rareza</option>
+              <option value="Absoluta" {{ filters.rarity == 'Absoluta' ? 'selected' : '' }}>Absoluta</option>
+              <option value="Común" {{ filters.rarity == 'Común' ? 'selected' : '' }}>Común</option>
+              <option value="Infrecuente" {{ filters.rarity == 'Infrecuente' ? 'selected' : '' }}>Infrecuente</option>
+              <option value="Mega" {{ filters.rarity == 'Mega' ? 'selected' : '' }}>Mega</option>
+              <option value="Rara" {{ filters.rarity == 'Rara' ? 'selected' : '' }}>Rara</option>
+              <option value="Ultra" {{ filters.rarity == 'Ultra' ? 'selected' : '' }}>Ultra</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input type="text" name="attribute" class="form-control" placeholder="Atributo" value="{{ filters.attribute }}">
+          </div>
+          <div class="col-md-2">
+            <input type="text" name="species" class="form-control" placeholder="Especie" value="{{ filters.species }}">
+          </div>
+          <div class="col-md-2">
+            <input type="number" name="cost" class="form-control" placeholder="Costo" value="{{ filters.cost }}">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Buscar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row g-4" id="card-deck">
+      {% for card in cards %}
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card-container" style="animation-delay: {% if loop.index <= 20 %}{{ loop.index * 0.1 }}s{% else %}0s{% endif %};">
+          <div class="card">
+            <div class="card-front">
+              <img src="/images/{{ card.id }}.webp" alt="{{ card.name }}">
+              {# <img src="/images/{{ card.id }}.jpg" alt="{{ card.name }}"> #}
+              <h5 class="card-title">{{ card.name }}</h5>
+            </div>
+            <div class="card-back">
+              <p><strong>Código:</strong> {{ card.code }}</p>
+              <p><strong>Rareza:</strong> {{ card.rarity }}</p>
+              <p><strong>Atributo:</strong> {{ card.attribute }}</p>
+              <p><strong>Especie:</strong> {{ card.species }}</p>
+              <p><strong>Costo:</strong> {{ card.cost }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination">
+    {% if currentPage > 1 %}
+    <a href="/cards?page={{ currentPage - 1 }}&limit={{ limit }}" class="btn btn-primary">Anterior</a>
+    {% endif %}
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    {% if currentPage < totalPages %}
+    <a href="/cards?page={{ currentPage + 1 }}&limit={{ limit }}" class="btn btn-primary">Siguiente</a>
+    {% endif %}
+  </div>
+
+  <!-- Reproductor de sonido invisible -->
+  <audio id="startup-sound" src="/sounds/shuffling-cards.mp3" preload="auto"></audio>
+
+  <!-- Script para reproducir el sonido una sola vez al cargar la página -->
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      const sound = document.getElementById('startup-sound');
+      sound.play();
+    });
+  </script>
+
+</body>
+</html>
