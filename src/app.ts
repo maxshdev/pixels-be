@@ -4,6 +4,7 @@ import { AppDataSource } from './database'; // Importamos la conexión desde dat
 import cardRoutes from './routes/card.routes';
 import path from 'path';
 import twig from 'twig';
+import helmet from "helmet";
 
 // Inicializar la conexión a la base de datos
 AppDataSource.initialize()
@@ -18,6 +19,11 @@ const app = express();
 
 // Middleware de CORS
 app.use(cors());
+app.use(
+  helmet({
+    xFrameOptions: { action: "sameorigin" },
+  }),
+);
 
 // Configuración del motor de vistas
 app.set('view engine', 'twig');
