@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f8f9fa;
+      background-color: #121212;
     }
 
     .card-container {
@@ -113,11 +113,11 @@
 </head>
 <body>
   <div class="container mt-5">
-    <h1 class="mb-4 text-center">Batalla Elemental</h1>
+    <h1 class="mb-4 text-center text-white">Batalla Elemental</h1>
 
     <!-- Formulario de búsqueda con filtros -->
     <div class="mb-4">
-      <form action="/cards" method="get">
+      <form action="/" method="get">
         <div class="row">
           <div class="col-md-2">
             <input type="text" name="name" class="form-control" placeholder="Nombre" value="{{ filters.name }}">
@@ -135,16 +135,64 @@
             </select>
           </div>
           <div class="col-md-2">
-            <input type="text" name="attribute" class="form-control" placeholder="Atributo" value="{{ filters.attribute }}">
+            {# <input type="text" name="attribute" class="form-control" placeholder="Atributo" value="{{ filters.attribute }}"> #}
+            <select name="attribute" class="form-control" placeholder="Atributo" value="{{ filters.attribute }}">
+              <option value="">Seleccione Atributo</option>
+              <option value="Agil" {{ filters.attribute == 'Agil' ? 'selected' : '' }}>Agil</option>
+              <option value="Agua" {{ filters.attribute == 'Agua' ? 'selected' : '' }}>Agua</option>
+              <option value="Armamento" {{ filters.attribute == 'Armamento' ? 'selected' : '' }}>Armamento</option>
+              <option value="Bimagia" {{ filters.attribute == 'Bimagia' ? 'selected' : '' }}>Bimagia</option>
+              <option value="Efecto" {{ filters.attribute == 'Efecto' ? 'selected' : '' }}>Efecto</option>
+              <option value="Estándar" {{ filters.attribute == 'Estándar' ? 'selected' : '' }}>Estándar</option>
+              <option value="Fuego" {{ filters.attribute == 'Fuego' ? 'selected' : '' }}>Fuego</option>
+              <option value="Fuerte" {{ filters.attribute == 'Fuerte' ? 'selected' : '' }}>Fuerte</option>
+              <option value="Luz" {{ filters.attribute == 'Luz' ? 'selected' : '' }}>Luz</option>
+              <option value="Oscuridad" {{ filters.attribute == 'Oscuridad' ? 'selected' : '' }}>Oscuridad</option>
+              <option value="Sagaz" {{ filters.attribute == 'Sagaz' ? 'selected' : '' }}>Sagaz</option>
+              <option value="Volter" {{ filters.attribute == 'Volter' ? 'selected' : '' }}>Volter</option>
+              <option value="Zentrum" {{ filters.attribute == 'Zentrum' ? 'selected' : '' }}>Zentrum</option>
+            </select>
           </div>
           <div class="col-md-2">
-            <input type="text" name="species" class="form-control" placeholder="Especie" value="{{ filters.species }}">
+            {# <input type="text" name="species" class="form-control" placeholder="Especie" value="{{ filters.species }}"> #}
+            <select name="species" class="form-control" placeholder="Especie" value="{{ filters.species }}">
+              <option value="">Seleccione Especie</option>
+              <option value="Aerial" {{ filters.species == 'Aerial' ? 'selected' : '' }}>Aerial</option>
+              <option value="Ancestral" {{ filters.species == 'Ancestral' ? 'selected' : '' }}>Ancestral</option>
+              <option value="Animorpher" {{ filters.species == 'Animorpher' ? 'selected' : '' }}>Animorpher</option>
+              <option value="Arlone" {{ filters.species == 'Arlone' ? 'selected' : '' }}>Arlone</option>
+              <option value="Automatian" {{ filters.species == 'Automatian' ? 'selected' : '' }}>Automatian</option>
+              <option value="Brakto" {{ filters.species == 'Brakto' ? 'selected' : '' }}>Brakto</option>
+              <option value="Brutante" {{ filters.species == 'Brutante' ? 'selected' : '' }}>Brutante</option>
+              <option value="Canidan" {{ filters.species == 'Canidan' ? 'selected' : '' }}>Canidan</option>
+              <option value="Constructo" {{ filters.species == 'Constructo' ? 'selected' : '' }}>Constructo</option>
+              <option value="Draquian" {{ filters.species == 'Draquian' ? 'selected' : '' }}>Draquian</option>
+              <option value="Elefant" {{ filters.species == 'Elefant' ? 'selected' : '' }}>Elefant</option>
+              <option value="Elvian" {{ filters.species == 'Elvian' ? 'selected' : '' }}>Elvian</option>
+              <option value="Fanyn" {{ filters.species == 'Fanyn' ? 'selected' : '' }}>Fanyn</option>
+              <option value="Faulen" {{ filters.species == 'Faulen' ? 'selected' : '' }}>Faulen</option>
+              <option value="Homs" {{ filters.species == 'Homs' ? 'selected' : '' }}>Homs</option>
+              <option value="Humano" {{ filters.species == 'Humano' ? 'selected' : '' }}>Humano</option>
+              <option value="Khull" {{ filters.species == 'Khull' ? 'selected' : '' }}>Khull</option>
+              <option value="Lagarto" {{ filters.species == 'Lagarto' ? 'selected' : '' }}>Lagarto</option>
+              <option value="Locación" {{ filters.species == 'Locación' ? 'selected' : '' }}>Locación</option>
+              <option value="Mackian" {{ filters.species == 'Mackian' ? 'selected' : '' }}>Mackian</option>
+              <option value="Nanian" {{ filters.species == 'Nanian' ? 'selected' : '' }}>Nanian</option>
+              <option value="Orquian" {{ filters.species == 'Orquian' ? 'selected' : '' }}>Orquian</option>
+              <option value="Pelorotan" {{ filters.species == 'Pelorotan' ? 'selected' : '' }}>Pelorotan</option>
+              <option value="Potencia" {{ filters.species == 'Potencia' ? 'selected' : '' }}>Potencia</option>
+              <option value="Seeder" {{ filters.species == 'Seeder' ? 'selected' : '' }}>Seeder</option>
+              <option value="Super humano" {{ filters.species == 'Super humano' ? 'selected' : '' }}>Super humano</option>
+              <option value="Teknotron" {{ filters.species == 'Teknotron' ? 'selected' : '' }}>Teknotron</option>
+              <option value="Trasgo" {{ filters.species == 'Trasgo' ? 'selected' : '' }}>Trasgo</option>
+              <option value="Traul" {{ filters.species == 'Traul' ? 'selected' : '' }}>Traul</option>
+            </select>
           </div>
           <div class="col-md-2">
             <input type="number" name="cost" class="form-control" placeholder="Costo" value="{{ filters.cost }}">
           </div>
           <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Buscar</button>
+            <button type="submit" class="btn btn-secondary w-100">Buscar</button>
           </div>
         </div>
       </form>
@@ -177,11 +225,11 @@
   <!-- Paginación -->
   <div class="pagination">
     {% if currentPage > 1 %}
-    <a href="/cards?page={{ currentPage - 1 }}&limit={{ limit }}" class="btn btn-primary">Anterior</a>
+    <a href="/?page={{ currentPage - 1 }}&limit={{ limit }}" class="btn btn-secondary">Anterior</a>
     {% endif %}
-    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <span class="text-white">Página {{ currentPage }} de {{ totalPages }}</span>
     {% if currentPage < totalPages %}
-    <a href="/cards?page={{ currentPage + 1 }}&limit={{ limit }}" class="btn btn-primary">Siguiente</a>
+    <a href="/?page={{ currentPage + 1 }}&limit={{ limit }}" class="btn btn-secondary">Siguiente</a>
     {% endif %}
   </div>
 

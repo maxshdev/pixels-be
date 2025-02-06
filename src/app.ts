@@ -27,7 +27,9 @@ app.use(
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      frameAncestors: ["'self'", 'https://rage.com'],
+      frameAncestors: ["'self'", 'https://ragemultiverse.com'],
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
     },
   })
 );

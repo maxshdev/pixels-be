@@ -4,6 +4,6 @@ import { paginationCards, showCards } from '../controllers/card.controller';
 const router = Router();
 
 // router.get('/cards', showCards);
-router.get('/cards', paginationCards);
+router.get('/', paginationCards);
 
 export default router;
