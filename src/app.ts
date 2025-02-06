@@ -24,6 +24,13 @@ app.use(
     xFrameOptions: { action: "sameorigin" },
   }),
 );
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      frameAncestors: ["'self'", 'https://rage.com'],
+    },
+  })
+);
 
 // Configuración del motor de vistas
 app.set('view engine', 'twig');
