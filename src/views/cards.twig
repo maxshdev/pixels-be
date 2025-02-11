@@ -13,18 +13,18 @@
     .card-container {
       perspective: 1000px;
       opacity: 0;
-      transform: translateX(100vw); /* Start off-screen to the right */
+      transform: translateX(100vw); /* Comienza fuera de la pantalla a la derecha */
       animation: fadeInCurve 1s ease-out forwards;
     }
 
     @keyframes fadeInCurve {
       from {
         opacity: 0;
-        transform: translateX(100vw) rotate(45deg); /* Start from the right, rotated */
+        transform: translateX(100vw) rotate(45deg);
       }
       to {
         opacity: 1;
-        transform: translateX(0) rotate(0); /* End in normal position */
+        transform: translateX(0) rotate(0);
       }
     }
 
@@ -108,7 +108,6 @@
     .pagination span {
       font-size: 1.1rem;
     }
-
   </style>
 </head>
 <body>
@@ -120,10 +119,24 @@
       <form action="/" method="get">
         <div class="row">
           <div class="col-md-2">
+            <label for="orderBy" class="form-label text-white">Ordenar por</label>
+            <select name="orderBy" class="form-control" value="{{ filters.orderBy }}">
+              <option value="">Por Defecto</option>
+              <option value="rarity_ASC" {{ filters.orderBy == 'rarity_ASC' ? 'selected' : '' }}>Rareza Ascendente</option>
+              <option value="rarity_DESC" {{ filters.orderBy == 'rarity_DESC' ? 'selected' : '' }}>Rareza Descendente</option>
+              <option value="name_ASC" {{ filters.orderBy == 'name_ASC' ? 'selected' : '' }}>Nombre Ascendente</option>
+              <option value="name_DESC" {{ filters.orderBy == 'name_DESC' ? 'selected' : '' }}>Nombre Descendente</option>
+              <option value="cost_ASC" {{ filters.orderBy == 'cost_ASC' ? 'selected' : '' }}>Costo Ascendente</option>
+              <option value="cost_DESC" {{ filters.orderBy == 'cost_DESC' ? 'selected' : '' }}>Costo Descendente</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-2">
             <input type="text" name="name" class="form-control" placeholder="Nombre" value="{{ filters.name }}">
           </div>
           <div class="col-md-2">
-            {# <input type="text" name="rarity" class="form-control" placeholder="Rareza" value="{{ filters.rarity }}"> #}
             <select name="rarity" class="form-control" placeholder="Rareza" value="{{ filters.rarity }}">
               <option value="">Seleccione Rareza</option>
               <option value="Absoluta" {{ filters.rarity == 'Absoluta' ? 'selected' : '' }}>Absoluta</option>
@@ -135,7 +148,6 @@
             </select>
           </div>
           <div class="col-md-2">
-            {# <input type="text" name="attribute" class="form-control" placeholder="Atributo" value="{{ filters.attribute }}"> #}
             <select name="attribute" class="form-control" placeholder="Atributo" value="{{ filters.attribute }}">
               <option value="">Seleccione Atributo</option>
               <option value="Agil" {{ filters.attribute == 'Agil' ? 'selected' : '' }}>Agil</option>
@@ -154,7 +166,6 @@
             </select>
           </div>
           <div class="col-md-2">
-            {# <input type="text" name="species" class="form-control" placeholder="Especie" value="{{ filters.species }}"> #}
             <select name="species" class="form-control" placeholder="Especie" value="{{ filters.species }}">
               <option value="">Seleccione Especie</option>
               <option value="Aerial" {{ filters.species == 'Aerial' ? 'selected' : '' }}>Aerial</option>
@@ -225,11 +236,23 @@
   <!-- Paginación -->
   <div class="pagination">
     {% if currentPage > 1 %}
-    <a href="/?page={{ currentPage - 1 }}&limit={{ limit }}" class="btn btn-secondary">Anterior</a>
+    <a href="/?page={{ currentPage - 1 }}&limit={{ limit }}
+      {% if filters.orderBy %}&orderBy={{ filters.orderBy }}{% endif %}
+      {% if filters.name %}&name={{ filters.name }}{% endif %}
+      {% if filters.rarity %}&rarity={{ filters.rarity }}{% endif %}
+      {% if filters.attribute %}&attribute={{ filters.attribute }}{% endif %}
+      {% if filters.species %}&species={{ filters.species }}{% endif %}
+      {% if filters.cost %}&cost={{ filters.cost }}{% endif %}" class="btn btn-secondary">Anterior</a>
     {% endif %}
     <span class="text-white">Página {{ currentPage }} de {{ totalPages }}</span>
     {% if currentPage < totalPages %}
-    <a href="/?page={{ currentPage + 1 }}&limit={{ limit }}" class="btn btn-secondary">Siguiente</a>
+    <a href="/?page={{ currentPage + 1 }}&limit={{ limit }}
+      {% if filters.orderBy %}&orderBy={{ filters.orderBy }}{% endif %}
+      {% if filters.name %}&name={{ filters.name }}{% endif %}
+      {% if filters.rarity %}&rarity={{ filters.rarity }}{% endif %}
+      {% if filters.attribute %}&attribute={{ filters.attribute }}{% endif %}
+      {% if filters.species %}&species={{ filters.species }}{% endif %}
+      {% if filters.cost %}&cost={{ filters.cost }}{% endif %}" class="btn btn-secondary">Siguiente</a>
     {% endif %}
   </div>
 

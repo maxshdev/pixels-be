@@ -16,42 +16,63 @@ export async function showCards(req: Request, res: Response): Promise<void> {
   }
 }
 
-// Controlador para obtener todas las cartas
+// Controlador para obtener todas las cartas con paginación, filtros y ordenación
 export async function paginationCards(req: Request, res: Response): Promise<void> {
   try {
-    // Obtener los filtros desde los parámetros de la consulta
-    const { page = 1, limit = 20, name, rarity, attribute, species, cost } = req.query;
+    // Extraer parámetros de consulta (query params)
+    const {
+      page = 1,
+      limit = 20,
+      name,
+      rarity,
+      attribute,
+      species,
+      cost,
+      orderBy
+    } = req.query;
     
-    // Crear un objeto con los filtros
+    // Crear objeto para filtros de búsqueda
     const filters: any = {};
 
-    // Aplicar filtros de texto usando LIKE para coincidencias parciales
+    // Filtros de búsqueda (usando LIKE para coincidencias parciales en campos de texto)
     if (name) filters.name = Like(`%${name}%`);
     if (rarity) filters.rarity = rarity;
     if (attribute) filters.attribute = Like(`%${attribute}%`);
     if (species) filters.species = Like(`%${species}%`);
     if (cost) filters.cost = cost;
 
-    // Calcular el desplazamiento (offset) y el límite
+    // Configurar el objeto de ordenación
+    const order: any = {};
+    if (orderBy && typeof orderBy === 'string') {
+      // Se espera el formato: "campo_dirección", por ejemplo "rarity_ASC" o "name_DESC"
+      const [field, direction] = orderBy.split('_');
+      const allowedFields = ['rarity', 'name', 'cost'];
+      if (allowedFields.includes(field) && (direction === 'ASC' || direction === 'DESC')) {
+        order[field] = direction;
+      }
+    }
+
+    // Calcular el desplazamiento (offset) en función de la página y el límite
     const offset = (Number(page) - 1) * Number(limit);
 
-    // Realizar la consulta con filtros y paginación
+    // Realizar la consulta con filtros, ordenación y paginación
     const [cards, total] = await cardRepository.findAndCount({
-      where: filters, // Aplicar filtros a la consulta
+      where: filters,
+      order,
       take: Number(limit),
       skip: offset,
     });
 
-    // Calcular el número total de páginas
+    // Calcular el total de páginas
     const totalPages = Math.ceil(total / Number(limit));
 
-    // Renderizar la vista de cartas con los filtros y datos de paginación
+    // Renderizar la vista enviando los datos y filtros actuales
     res.render('cards.twig', {
       cards,
       totalPages,
       currentPage: Number(page),
       limit: Number(limit),
-      filters: { name, rarity, attribute, species, cost }, // Enviar los filtros a la vista
+      filters: { name, rarity, attribute, species, cost, orderBy },
     });
   } catch (error) {
     console.error('Error al obtener las cartas:', error);
