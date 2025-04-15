@@ -35,6 +35,12 @@ export class Card extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   legend: string;
 
+  @Column({ length: 20, nullable: true })
+  damage: string;
+
+  @Column({ length: 20, nullable: true })
+  version: string;
+
   @Column({ length: 255, nullable: true })
   image: string;
 

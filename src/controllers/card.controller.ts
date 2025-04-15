@@ -28,6 +28,8 @@ export async function paginationCards(req: Request, res: Response): Promise<void
       attribute,
       species,
       cost,
+      damage,
+      version,
       orderBy
     } = req.query;
     
@@ -40,6 +42,8 @@ export async function paginationCards(req: Request, res: Response): Promise<void
     if (attribute) filters.attribute = Like(`%${attribute}%`);
     if (species) filters.species = Like(`%${species}%`);
     if (cost) filters.cost = cost;
+    if (damage) filters.damage = Like(`%${damage}%`);
+    if (version) filters.version = Like(`%${version}%`);
 
     // Configurar el objeto de ordenación
     const order: any = {};
@@ -72,7 +76,7 @@ export async function paginationCards(req: Request, res: Response): Promise<void
       totalPages,
       currentPage: Number(page),
       limit: Number(limit),
-      filters: { name, rarity, attribute, species, cost, orderBy },
+      filters: { name, rarity, attribute, species, cost, damage, version, orderBy },
     });
   } catch (error) {
     console.error('Error al obtener las cartas:', error);
