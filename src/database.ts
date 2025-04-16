@@ -7,7 +7,7 @@ export const AppDataSource = new DataSource({
   port: 3306,
   username: 'root',
   password: '',
-  database: 'pixels-be-db',
+  database: 'be-db',
   entities: [path.join(__dirname, '/models/*.ts')], // Ruta a las entidades
   synchronize: false, // Sincroniza las tablas automáticamente
   logging: true,
