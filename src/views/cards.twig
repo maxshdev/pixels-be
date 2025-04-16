@@ -134,9 +134,9 @@
             <label for="version" class="form-label text-white">Generación</label>
             <select name="version" class="form-control" value="{{ filters.version }}">
               <option value="">Todas</option>
-              <option value="Génesis" {{ filters.orderBy == 'Génesis' ? 'selected' : '' }}>Génesis</option>
-              <option value="Alfa" {{ filters.orderBy == 'Alfa' ? 'selected' : '' }}>Alfa</option>
-              <option value="Alfa+" {{ filters.orderBy == 'Alfa+' ? 'selected' : '' }}>Alfa+</option>
+              <option value="Génesis" {{ filters.version == 'Génesis' ? 'selected' : '' }}>Génesis</option>
+              <option value="Alfa" {{ filters.version == 'Alfa' ? 'selected' : '' }}>Alfa</option>
+              <option value="Alfa+" {{ filters.version == 'Alfa+' ? 'selected' : '' }}>Alfa+</option>
             </select>
           </div>
           <div class="col-md-2">
