@@ -142,7 +142,23 @@
           <div class="col-md-2">
             <label for="damage" class="form-label text-white">Daño</label>
             <select name="damage" class="form-control" value="{{ filters.damage }}">
-              <option value="">Todas</option>
+              <option value="">Todos</option>
+              <option value="Arquero" {{ filters.damage == 'Arquero' ? 'selected' : '' }}>Arquero</option>
+              <option value="Báculo curador" {{ filters.damage == 'Báculo curador' ? 'selected' : '' }}>Báculo curador</option>
+              <option value="Daga" {{ filters.damage == 'Daga' ? 'selected' : '' }}>Daga</option>
+              <option value="Doble espada" {{ filters.damage == 'Doble espada' ? 'selected' : '' }}>Doble espada</option>
+              <option value="Espadachín" {{ filters.damage == 'Espadachín' ? 'selected' : '' }}>Espadachín</option>
+              <option value="Explosivo" {{ filters.damage == 'Explosivo' ? 'selected' : '' }}>Explosivo</option>
+              <option value="Hacher" {{ filters.damage == 'Hacher' ? 'selected' : '' }}>Hacher</option>
+              <option value="Lancero" {{ filters.damage == 'Lancero' ? 'selected' : '' }}>Lancero</option>
+              <option value="Lector" {{ filters.damage == 'Lector' ? 'selected' : '' }}>Lector</option>
+              <option value="Mago" {{ filters.damage == 'Mago' ? 'selected' : '' }}>Mago</option>
+              <option value="Mazzer" {{ filters.damage == 'Mazzer' ? 'selected' : '' }}>Mazzer</option>
+              <option value="Púgil" {{ filters.damage == 'Púgil' ? 'selected' : '' }}>Púgil</option>
+              <option value="Reforzador" {{ filters.damage == 'Reforzador' ? 'selected' : '' }}>Reforzador</option>
+              <option value="Tanque" {{ filters.damage == 'Tanque' ? 'selected' : '' }}>Tanque</option>
+              <option value="Tirador" {{ filters.damage == 'Tirador' ? 'selected' : '' }}>Tirador</option>
+              <option value="Trobador" {{ filters.damage == 'Trobador' ? 'selected' : '' }}>Trobador</option>
             </select>
           </div>
         </div>
